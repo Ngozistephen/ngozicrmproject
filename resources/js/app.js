@@ -3,30 +3,29 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-
 require('./bootstrap');
 
-window.Vue = require('vue').default;
+import { createApp } from 'vue';
+import App from './components/App.vue';
+// import router from './router';
+import HeaderArea from './components/HeaderArea.vue';
+import LandingPage from './components/LandingPage.vue';
+import LoginPage from './components/Auth/LoginPage.vue';
+import RegisterPage from './components/Auth/RegisterPage.vue';
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
 
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+const app = createApp({})
+    app.component('app', App);
+    app.component('header-area', HeaderArea);
+    app.component('landing-page', LandingPage);
+    app. component('login-page', LoginPage);
+    app.component('register-page', RegisterPage);
 
-const app = new Vue({
-    el: '#app',
-});
+    
+// app.use(router);
+
+app.mount("#app");
+
+
