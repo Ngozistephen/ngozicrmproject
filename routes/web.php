@@ -16,17 +16,10 @@ use App\Http\Controllers\LandingPageController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('{any}', function () {
+    return view('layouts.app');
+})->where('any', '.*');
 
-Route:: view('/', 'landing');
-// Route:: get('/', [LandingPageController::class, 'show']);
 
-Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

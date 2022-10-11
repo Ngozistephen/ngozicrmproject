@@ -88,8 +88,7 @@
 
 
     <div class="">
-        <header-area/>
-        Register
+        Register Page
     </div>
 
 </template>

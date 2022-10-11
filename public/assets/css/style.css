@@ -170,9 +170,10 @@ section {
 header {
     position:absolute;
     left: 0;
-    top: 20px;
+    /* top: 20px; */
     width:100%;
     z-index: 9999;
+    background: linear-gradient(to bottom, #5627b4 0%, #934dbe 100%);
 }
 header.sticky{
     position: fixed;

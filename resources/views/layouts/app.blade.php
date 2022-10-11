@@ -93,7 +93,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- page title -->
-        <title>NgoziCRM </title>
+        <title>{{env('APP_NAME')}}</title>
         <!--All Css here -->
         <!--Bootstrap v3.3.7 css-->
         <link rel="stylesheet" href="assets/css/bootstrap/css/bootstrap.min.css">
@@ -115,6 +115,26 @@
         <script src="assets/js/vendor/modernizr-3.5.0.min.js"></script> --}}
     </head>
     <body>
+        
+            
+        @if (Auth::check())
+            <script>
+                window.laravel = {!!json_encode([
+                    'isLoggedIn' => true,
+                    'user' => Auth::user()
+                ])!!}
+            </script>
+            
+        @else
+            <script>
+                window.laravel = {!!json_encode([
+                    'isLoggedIn' => false,
+                   
+                ])!!}
+            </script>
+            
+        @endif
+
         <div id="app">
             <main class="py-4">
                 @yield('content')

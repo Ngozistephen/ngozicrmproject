@@ -3,7 +3,7 @@
 
 @section('content')
     
-    <app></app> 
+    <home></home> 
     
     <script src="{{mix('js/app.js')}}"></script>
 

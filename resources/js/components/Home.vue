@@ -1,5 +1,5 @@
 <template>
-    <div class="">
+    <div class=""> 
                 <div class="preloder">
                     <div class="spinner">
                         <div class="bounce1"></div>
@@ -482,7 +482,7 @@
                         </div>
                     </div>
                 </section><!--End contact sectin-->
-                <!-- <footer-area></footer-area> -->
+                <footer-area></footer-area>
                 <!--Scroll-up-->
                 <a id="scroll-up" ><i class="fa fa-angle-up"></i></a>
                 <!--jequery-->
@@ -491,18 +491,30 @@
 
 <script>
      
-    import HeaderArea from './HeaderArea.vue';
+   
     import FooterArea from './FooterArea.vue';
     
     export default {
+        name: "Home",
 
-        // data (){
+        data () {
+            return {
 
-        // },
+            }
+
+        },
         components: {
-            HeaderArea,
+         
             FooterArea,
         },
+
+        created(){
+
+        },
+
+        methods:{
+
+        } 
     }
 
  </script>
@@ -511,7 +523,7 @@
 
 
 <style>
-               /*-------------------------------------
+/*-------------------------------------
     Template Name: Stfpp software landing page.
     Template URI: https://ryetheme.net
     Description: Stfpp software landing page.

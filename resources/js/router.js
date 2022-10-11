@@ -1,39 +1,39 @@
 // import {createApp} from 'vue';
 
-Vue.use(VueRouter);
 
 import { createWebHistory, createRouter } from "vue-router";
-import RegisterPage from '@/components/Auth/RegisterPage.vue';
-import LoginPage from '@/components/Auth/LoginPage.vue';
-import AdminDashboard from '@/components/AdminDashboard.vue';
+import Home from './components/Home.vue';
+import RegisterPage from './components/Auth/RegisterPage.vue';
+import LoginPage from './components/Auth/LoginPage.vue';
+import AdminDashboard from './components/AdminDashboard.vue';
 
+ export const routes = [
+      {
+          path: '/',
+          name: 'home',
+          component: Home,
+      },
+      {
+          path: '/register',
+          name: 'register',
+          component: RegisterPage,
+      },
+      {
+          path: '/login',
+          name: 'login',
+          component: LoginPage,
+      }, 
+      {
+          path: '/dashboard',
+          name: 'dashboard',
+          component: AdminDashboard,
+      },
+    ];
 
+    const router = createRouter({
 
-createRouter({
-
-  history: createWebHistory(),
-  routes: [
-    {
-        path: '/',
-        name: 'landing',
-        component: LandingPage,
-    },
-    {
-        path: '/register',
-        name: 'Register',
-        component: RegisterPage,
-    },
-    {
-        path: '/dashboard',
-        name: 'Dashboard',
-        component: AdminDashboard,
-    },
-    {
-        path: '/login',
-        name: 'Login',
-        component: LoginPage,
-    }, 
-  ]
-});
+        history: createWebHistory(),
+        routes,
+    });
 
 export default router;

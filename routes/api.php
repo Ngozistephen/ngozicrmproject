@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\API\UserController;
+use Illuminate\Auth\Events\Login;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,29 +16,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/callback', function(Request $request){
-//     $http = new GuzzleHttp\Client;
-
-//     $response = $http->post('http://ngozicrmproject.test/oauth/token', [
-//             'form_params' => [
-//                 'grant_type'=> 'password',
-//                 'client_id' => 2,
-//                 'client_secret' => 'FPLPCus92bG7LJ72LwpWHnqUW7V5Avt6kYMP4pYe',
-//                 'username' => 'uche@example.com',
-//                 'password' => '1234567',
-//                 'scope' => ''
-//             ]
-//         ]);
-
-//        return json_decode((string) $response->getBody(), true);
-// }); 
-
-Route::middleware('auth:api')->prefix('to')->namespace('Auth')->group(function(){
-    Route::get('/users', function ($id) {
-        
-    });
-});
-
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::post('login', [API\UserController::class, 'login']);
+Route::post('register', [API\UserController::class, 'register']);
+Route::post('logout', [API\UserController::class, 'logout'])->middleware('auth:sanctum');

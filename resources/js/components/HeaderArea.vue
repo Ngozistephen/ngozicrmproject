@@ -1,6 +1,7 @@
 <template>
-    <div>
-        <header id="header-area">
+         
+     
+         <header id="header-area">
                    <div class="container">
                        <div class="row">
                            <nav class="navbar navbar-default">
@@ -14,29 +15,26 @@
                                    <a class="navbar-brand" href="#"><img src="assets/img/logo.png" alt=""></a>
                                   
                                </div>
-                               <div class="collapse navbar-collapse navbar-ex1-collapse">
-                                   <ul class="nav navbar-nav navbar-right">
-                                       <li><a class="page-scroll" href="#home">Home</a></li>
-                                       <li><a class="page-scroll" href="#features">features</a></li>
-                                       <li><a class="page-scroll" href="#screenshot">screens</a></li>
-                                       <li><a class="page-scroll" href="#testimonial">testimonial</a></li>
-                                       <li><a class="page-scroll" href="#">Register</a></li>
-                                       <li><a class="page-scroll" href="#">Login</a></li>
-                                      
-                                     
+                               <div class="collapse navbar-collapse navbar-ex1-collapse" >
+                                    <ul class="nav navbar-nav navbar-right" v-if="isLoggedIn">
+                                        <router-link to="/dashboard" class="page-scroll">Dashboard</router-link>
+                                        <a class="page-scroll" @click="logout">Logout</a>
+                                    </ul>
+                                    <ul class="nav navbar-nav navbar-right" v-else>
+                                        <li><router-link to="/#home" class="page-scroll">Home</router-link></li>
 
-                                        <!-- Right Side Of Navbar -->
-                                   
-                                       
-                                        
-                                   
-                                   </ul>
+                                        <li v-if="$route.name == 'home'"><a class="page-scroll" href="#features">features</a></li>
+                                        <li v-if="$route.name == 'home'"><a class="page-scroll" href="#screenshot">screens</a></li>
+                                        <li v-if="$route.name == 'home'"><a class="page-scroll" href="#testimonial">testimonial</a></li>
+
+                                        <li><router-link to="/login" class="page-scroll">Login</router-link></li>
+                                        <li><router-link to="/register" class="page-scroll">Register</router-link></li>
+                                    </ul>
                                </div>
                            </nav>
                        </div>
                    </div>
         </header><!-- End Header area -->
-    </div>
 </template>
 
 <script>
@@ -50,7 +48,7 @@
 header {
     position:absolute;
     left: 0;
-    top: 20px;
+    /* top: 20px; */
     width:100%;
     z-index: 9999;
 }
