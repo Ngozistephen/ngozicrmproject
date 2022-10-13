@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\API\UserController;
-use Illuminate\Auth\Events\Login;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('login', [API\UserController::class, 'login']);
-Route::post('register', [API\UserController::class, 'register']);
-Route::post('logout', [API\UserController::class, 'logout'])->middleware('auth:sanctum');
+Route::post('login', [UserController::class, 'login']);
+Route::post('register', [UserController::class, 'register']);
+Route::post('logout', [UserController::class, 'logout'])->middleware('auth:sanctum');

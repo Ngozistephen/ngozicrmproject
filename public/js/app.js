@@ -22972,10 +22972,10 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/AdminDashboard.vue?vue&type=script&lang=js":
-/*!********************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/AdminDashboard.vue?vue&type=script&lang=js ***!
-  \********************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Admin/Dashboard.vue?vue&type=script&lang=js":
+/*!*********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Admin/Dashboard.vue?vue&type=script&lang=js ***!
+  \*********************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -22985,6 +22985,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'dashboard',
+  data: function data() {
+    return {
+      firstname: null,
+      lastname: null
+    };
+  },
+  // created(){
+  //     if (window.laravel.user){
+  //         this.firstname = window.laravel.user.firstname,
+  //         this.lastname = window.laravel.user.lastname
+  //     }
+  // },
   components: {}
 });
 
@@ -23007,7 +23019,139 @@ __webpack_require__.r(__webpack_exports__);
   name: "App",
   components: {
     HeaderArea: _HeaderArea_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Auth/LoginPage.vue?vue&type=script&lang=js":
+/*!********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Auth/LoginPage.vue?vue&type=script&lang=js ***!
+  \********************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _HeaderArea_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../HeaderArea.vue */ "./resources/js/components/HeaderArea.vue");
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'login',
+  data: function data() {
+    return {
+      email: "",
+      password: "",
+      error: null
+    };
   },
+  components: {
+    HeaderArea: _HeaderArea_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  methods: {
+    handleSubmit: function handleSubmit(e) {
+      var _this = this;
+
+      e.preventDefault();
+
+      if (this.password.length > 0) {
+        this.$axios.get('/sanctum/csrf-cookie').then(function (response) {
+          _this.$axios.post('api/login', {
+            email: _this.email,
+            password: _this.password
+          }).then(function (response) {
+            var url = _this.$router.resolve({
+              name: 'dashboard'
+            }).fullPath; // console. log(url)
+
+
+            location = url;
+          })["catch"](function (error) {
+            console.error(error);
+            _this.error = error.response.data.message;
+          });
+        });
+      }
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Auth/RegisterPage.vue?vue&type=script&lang=js":
+/*!***********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Auth/RegisterPage.vue?vue&type=script&lang=js ***!
+  \***********************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _HeaderArea_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../HeaderArea.vue */ "./resources/js/components/HeaderArea.vue");
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'register',
+  data: function data() {
+    return {
+      firstname: "",
+      lastname: "",
+      email: "",
+      password: "",
+      error: null
+    };
+  },
+  components: {
+    HeaderArea: _HeaderArea_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  methods: {
+    handleSubmit: function handleSubmit(e) {
+      var _this = this;
+
+      e.preventDefault();
+      this.error = null;
+
+      if (this.password.length > 0) {
+        this.$axios.get('/sanctum/csrf-cookie').then(function (response) {
+          _this.$axios.post('api/register', {
+            firstname: _this.firstname,
+            lastname: _this.lastname,
+            email: _this.email,
+            password: _this.password
+          }).then(function (response) {
+            _this.$router.push({
+              name: 'login'
+            });
+          })["catch"](function (error) {
+            console.error(error);
+            _this.error = error.response.data.message;
+            setTimeout(function () {
+              _this.error = null;
+            }, 2000);
+          });
+        });
+      }
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/HeaderArea.vue?vue&type=script&lang=js":
+/*!****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/HeaderArea.vue?vue&type=script&lang=js ***!
+  \****************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "HeaderArea",
   data: function data() {
     return {
       isLoggedIn: false
@@ -23040,50 +23184,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Auth/LoginPage.vue?vue&type=script&lang=js":
-/*!********************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Auth/LoginPage.vue?vue&type=script&lang=js ***!
-  \********************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _HeaderArea_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../HeaderArea.vue */ "./resources/js/components/HeaderArea.vue");
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'login',
-  components: {
-    HeaderArea: _HeaderArea_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
-  }
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Auth/RegisterPage.vue?vue&type=script&lang=js":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Auth/RegisterPage.vue?vue&type=script&lang=js ***!
-  \***********************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _HeaderArea_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../HeaderArea.vue */ "./resources/js/components/HeaderArea.vue");
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'register',
-  components: {
-    HeaderArea: _HeaderArea_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
-  }
-});
-
-/***/ }),
-
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Home.vue?vue&type=script&lang=js":
 /*!**********************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Home.vue?vue&type=script&lang=js ***!
@@ -23111,10 +23211,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/AdminDashboard.vue?vue&type=template&id=1d9b30b0":
-/*!************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/AdminDashboard.vue?vue&type=template&id=1d9b30b0 ***!
-  \************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Admin/Dashboard.vue?vue&type=template&id=5d194e19":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Admin/Dashboard.vue?vue&type=template&id=5d194e19 ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -23128,7 +23228,9 @@ var _hoisted_1 = {
   "class": ""
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, " Admin Dashboard ");
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, " Welcome " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.firstname || $data.lastname), 1
+  /* TEXT */
+  );
 }
 
 /***/ }),
@@ -23170,14 +23272,137 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": ""
+  "class": "container"
+};
+var _hoisted_2 = {
+  "class": "row-justify-content-center"
+};
+var _hoisted_3 = {
+  "class": "col-md-8"
+};
+var _hoisted_4 = {
+  key: 0,
+  "class": "alert alert-danger alert-dismissible show",
+  role: "alert"
 };
 
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)(" Login Page <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus odit ad at aperiam, modi ab accusamus vel inventore corrupti officiis ipsa natus laudantium autem quo nisi neque beatae optio.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus odit ad at aperiam, modi ab accusamus vel inventore corrupti officiis ipsa natus laudantium autem quo nisi neque beatae optio.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus odit ad at aperiam, modi ab accusamus vel inventore corrupti officiis ipsa natus laudantium autem quo nisi neque beatae optio.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus odit ad at aperiam, modi ab accusamus vel inventore corrupti officiis ipsa natus laudantium autem quo nisi neque beatae optio.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus odit ad at aperiam, modi ab accusamus vel inventore corrupti officiis ipsa natus laudantium autem quo nisi neque beatae optio.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus odit ad at aperiam, modi ab accusamus vel inventore corrupti officiis ipsa natus laudantium autem quo nisi neque beatae optio.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus odit ad at aperiam, modi ab accusamus vel inventore corrupti officiis ipsa natus laudantium autem quo nisi neque beatae optio.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus odit ad at aperiam, modi ab accusamus vel inventore corrupti officiis ipsa natus laudantium autem quo nisi neque beatae optio.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus odit ad at aperiam, modi ab accusamus vel inventore corrupti officiis ipsa natus laudantium autem quo nisi neque beatae optio.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus odit ad at aperiam, modi ab accusamus vel inventore corrupti officiis ipsa natus laudantium autem quo nisi neque beatae optio.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus odit ad at aperiam, modi ab accusamus vel inventore corrupti officiis ipsa natus laudantium autem quo nisi neque beatae optio.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus odit ad at aperiam, modi ab accusamus vel inventore corrupti officiis ipsa natus laudantium autem quo nisi neque beatae optio.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus odit ad at aperiam, modi ab accusamus vel inventore corrupti officiis ipsa natus laudantium autem quo nisi neque beatae optio.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus odit ad at aperiam, modi ab accusamus vel inventore corrupti officiis ipsa natus laudantium autem quo nisi neque beatae optio.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus odit ad at aperiam, modi ab accusamus vel inventore corrupti officiis ipsa natus laudantium autem quo nisi neque beatae optio.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus odit ad at aperiam, modi ab accusamus vel inventore corrupti officiis ipsa natus laudantium autem quo nisi neque beatae optio.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus odit ad at aperiam, modi ab accusamus vel inventore corrupti officiis ipsa natus laudantium autem quo nisi neque beatae optio.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus odit ad at aperiam, modi ab accusamus vel inventore corrupti officiis ipsa natus laudantium autem quo nisi neque beatae optio.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus odit ad at aperiam, modi ab accusamus vel inventore corrupti officiis ipsa natus laudantium autem quo nisi neque beatae optio.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus odit ad at aperiam, modi ab accusamus vel inventore corrupti officiis ipsa natus laudantium autem quo nisi neque beatae optio.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus odit ad at aperiam, modi ab accusamus vel inventore corrupti officiis ipsa natus laudantium autem quo nisi neque beatae optio.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus odit ad at aperiam, modi ab accusamus vel inventore corrupti officiis ipsa natus laudantium autem quo nisi neque beatae optio.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus odit ad at aperiam, modi ab accusamus vel inventore corrupti officiis ipsa natus laudantium autem quo nisi neque beatae optio.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus odit ad at aperiam, modi ab accusamus vel inventore corrupti officiis ipsa natus laudantium autem quo nisi neque beatae optio.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus odit ad at aperiam, modi ab accusamus vel inventore corrupti officiis ipsa natus laudantium autem quo nisi neque beatae optio.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus odit ad at aperiam, modi ab accusamus vel inventore corrupti officiis ipsa natus laudantium autem quo nisi neque beatae optio.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus odit ad at aperiam, modi ab accusamus vel inventore corrupti officiis ipsa natus laudantium autem quo nisi neque beatae optio.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus odit ad at aperiam, modi ab accusamus vel inventore corrupti officiis ipsa natus laudantium autem quo nisi neque beatae optio.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus odit ad at aperiam, modi ab accusamus vel inventore corrupti officiis ipsa natus laudantium autem quo nisi neque beatae optio.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus odit ad at aperiam, modi ab accusamus vel inventore corrupti officiis ipsa natus laudantium autem quo nisi neque beatae optio.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus odit ad at aperiam, modi ab accusamus vel inventore corrupti officiis ipsa natus laudantium autem quo nisi neque beatae optio.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus odit ad at aperiam, modi ab accusamus vel inventore corrupti officiis ipsa natus laudantium autem quo nisi neque beatae optio.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus odit ad at aperiam, modi ab accusamus vel inventore corrupti officiis ipsa natus laudantium autem quo nisi neque beatae optio.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus odit ad at aperiam, modi ab accusamus vel inventore corrupti officiis ipsa natus laudantium autem quo nisi neque beatae optio.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus odit ad at aperiam, modi ab accusamus vel inventore corrupti officiis ipsa natus laudantium autem quo nisi neque beatae optio.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus odit ad at aperiam, modi ab accusamus vel inventore corrupti officiis ipsa natus laudantium autem quo nisi neque beatae optio.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus odit ad at aperiam, modi ab accusamus vel inventore corrupti officiis ipsa natus laudantium autem quo nisi neque beatae optio.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus odit ad at aperiam, modi ab accusamus vel inventore corrupti officiis ipsa natus laudantium autem quo nisi neque beatae optio.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus odit ad at aperiam, modi ab accusamus vel inventore corrupti officiis ipsa natus laudantium autem quo nisi neque beatae optio.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus odit ad at aperiam, modi ab accusamus vel inventore corrupti officiis ipsa natus laudantium autem quo nisi neque beatae optio.</p>", 41);
+var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  type: "button",
+  "class": "btn-close",
+  "data-bs-dismiss": "alert",
+  "aria-label": "Close"
+}, null, -1
+/* HOISTED */
+);
 
-var _hoisted_43 = [_hoisted_2];
+var _hoisted_6 = {
+  "class": "card card-default"
+};
+
+var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "card-header"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h5", null, "Login")], -1
+/* HOISTED */
+);
+
+var _hoisted_8 = {
+  "class": "card-body"
+};
+var _hoisted_9 = {
+  "class": "form-group row"
+};
+
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "for": "email",
+  "class": "col-sm-4 col-form-label text-md-right"
+}, " E-mail Address", -1
+/* HOISTED */
+);
+
+var _hoisted_11 = {
+  "class": "col-md-8"
+};
+var _hoisted_12 = {
+  "class": "form-group row mt-1"
+};
+
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "for": "password",
+  "class": "col-sm-4 col-form-label text-md-right"
+}, " Password", -1
+/* HOISTED */
+);
+
+var _hoisted_14 = {
+  "class": "col-md-8"
+};
+var _hoisted_15 = {
+  "class": "form-group row mt-1 mb-0"
+};
+var _hoisted_16 = {
+  "class": "col-md-8 offset-md-4"
+};
+var _hoisted_17 = {
+  "class": "row mt-1"
+};
+var _hoisted_18 = {
+  "class": "col-md-8 offset-md-4"
+};
+var _hoisted_19 = {
+  "class": "text-muted"
+};
+
+var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Do not have any account yet? Please ");
+
+var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Register");
+
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, _hoisted_43);
+  var _component_router_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-link");
+
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [$data.error !== null ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.error), 1
+  /* TEXT */
+  )])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    id: "email",
+    type: "email",
+    "class": "form-control",
+    "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
+      return $data.email = $event;
+    }),
+    required: "",
+    autofocus: "",
+    autocomplete: "off",
+    placeholder: "Enter Email Address"
+  }, null, 512
+  /* NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.email]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    id: "password",
+    type: "password",
+    "class": "form-control",
+    "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
+      return $data.password = $event;
+    }),
+    required: "",
+    autofocus: "",
+    autocomplete: "off",
+    placeholder: "Enter Password"
+  }, null, 512
+  /* NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.password]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    type: "submit",
+    "class": "btn btn-success",
+    onClick: _cache[2] || (_cache[2] = function () {
+      return $options.handleSubmit && $options.handleSubmit.apply($options, arguments);
+    })
+  }, " Login ")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", _hoisted_19, [_hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    to: "/register"
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_21];
+    }),
+    _: 1
+    /* STABLE */
+
+  })])])])])])])])])]);
 }
 
 /***/ }),
@@ -23195,17 +23420,192 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
+var _hoisted_1 = {
+  "class": "container"
+};
+var _hoisted_2 = {
+  "class": "row-justify-content-center"
+};
+var _hoisted_3 = {
+  "class": "col-md-8"
+};
+var _hoisted_4 = {
+  key: 0,
+  "class": "alert alert-danger alert-dismissible show",
+  role: "alert"
+};
 
-var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": ""
-}, " Register Page ", -1
+var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  type: "button",
+  "class": "btn-close",
+  "data-bs-dismiss": "alert",
+  "aria-label": "Close"
+}, null, -1
 /* HOISTED */
 );
 
+var _hoisted_6 = {
+  "class": "card card-default"
+};
+
+var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "card-header"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h5", null, "Register ")], -1
+/* HOISTED */
+);
+
+var _hoisted_8 = {
+  "class": "card-body"
+};
+var _hoisted_9 = {
+  "class": "form-group row"
+};
+
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "for": "firstname",
+  "class": "col-sm-4 col-form-label text-md-right"
+}, "Frist Nmae", -1
+/* HOISTED */
+);
+
+var _hoisted_11 = {
+  "class": "col-md-8"
+};
+var _hoisted_12 = {
+  "class": "form-group row"
+};
+
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "for": "lastname",
+  "class": "col-sm-4 col-form-label text-md-right"
+}, "Last Name", -1
+/* HOISTED */
+);
+
+var _hoisted_14 = {
+  "class": "col-md-8"
+};
+var _hoisted_15 = {
+  "class": "form-group row"
+};
+
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "for": "email",
+  "class": "col-sm-4 col-form-label text-md-right"
+}, " E-mail Address", -1
+/* HOISTED */
+);
+
+var _hoisted_17 = {
+  "class": "col-md-8"
+};
+var _hoisted_18 = {
+  "class": "form-group row mt-1"
+};
+
+var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "for": "password",
+  "class": "col-sm-4 col-form-label text-md-right"
+}, " Password", -1
+/* HOISTED */
+);
+
+var _hoisted_20 = {
+  "class": "col-md-8"
+};
+var _hoisted_21 = {
+  "class": "form-group row mt-1 mb-0"
+};
+var _hoisted_22 = {
+  "class": "col-md-8 offset-md-4"
+};
+var _hoisted_23 = {
+  "class": "row mt-1"
+};
+var _hoisted_24 = {
+  "class": "col-md-8 offset-md-4"
+};
+var _hoisted_25 = {
+  "class": "text-muted"
+};
+
+var _hoisted_26 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Have an Account? Please ");
+
+var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Login");
+
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div  id=\"register\" class=\"register-container\">\r\n        <div class=\"row justify-content-center\">\r\n            <div class=\"col-md-8\">\r\n                <div class=\"card\">\r\n                    <div class=\"card-header\">Register</div>\r\n\r\n                    <div class=\"card-body\">\r\n                        <form method=\"POST\" action=\"/register\">\r\n                            @csrf\r\n\r\n                            <div class=\"row mb-3\">\r\n                                <label for=\"firstname\" class=\"col-md-4 col-form-label text-md-end\">First Name</label>\r\n\r\n                                <div class=\"col-md-6\">\r\n                                    <input id=\"firstname\" type=\"text\" class=\"form-control @error('firstname') is-invalid @enderror\" name=\"firstname\" value=\"{{ old('firstname') }}\" required autocomplete=\"firstname\" autofocus>\r\n\r\n                                    @error('firstname')\r\n                                        <span class=\"invalid-feedback\" role=\"alert\">\r\n                                            <strong>{{ $message }}</strong>\r\n                                        </span>\r\n                                    @enderror\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"row mb-3\">\r\n                                <label for=\"lastname\" class=\"col-md-4 col-form-label text-md-end\">Last Name</label>\r\n\r\n                                <div class=\"col-md-6\">\r\n                                    <input id=\"lastname\" type=\"text\" class=\"form-control @error('lastname') is-invalid @enderror\" name=\"lastname\" value=\"{{ old('lastname') }}\" required autocomplete=\"lastname\" autofocus>\r\n\r\n                                    @error('lastname')\r\n                                        <span class=\"invalid-feedback\" role=\"alert\">\r\n                                            <strong>{{ $message }}</strong>\r\n                                        </span>\r\n                                    @enderror\r\n                                </div>\r\n                            </div>\r\n\r\n                            <div class=\"row mb-3\">\r\n                                <label for=\"email\" class=\"col-md-4 col-form-label text-md-end\">Email Address</label>\r\n\r\n                                <div class=\"col-md-6\">\r\n                                    <input id=\"email\" type=\"email\" class=\"form-control @error('email') is-invalid @enderror\" name=\"email\" value=\"{{ old('email') }}\" required autocomplete=\"email\">\r\n\r\n                                    @error('email')\r\n                                        <span class=\"invalid-feedback\" role=\"alert\">\r\n                                            <strong>{{ $message }}</strong>\r\n                                        </span>\r\n                                    @enderror\r\n                                </div>\r\n                            </div>\r\n\r\n                            <div class=\"row mb-3\">\r\n                                <label for=\"password\" class=\"col-md-4 col-form-label text-md-end\">Password</label>\r\n\r\n                                <div class=\"col-md-6\">\r\n                                    <input id=\"password\" type=\"password\" class=\"form-control @error('password') is-invalid @enderror\" name=\"password\" required autocomplete=\"new-password\">\r\n\r\n                                    @error('password')\r\n                                        <span class=\"invalid-feedback\" role=\"alert\">\r\n                                            <strong>{{ $message }}</strong>\r\n                                        </span>\r\n                                    @enderror\r\n                                </div>\r\n                            </div>\r\n\r\n                            <div class=\"row mb-3\">\r\n                                <label for=\"password-confirm\" class=\"col-md-4 col-form-label text-md-end\">Confirm Password</label>\r\n\r\n                                <div class=\"col-md-6\">\r\n                                    <input id=\"password-confirm\" type=\"password\" class=\"form-control\" name=\"password_confirmation\" required autocomplete=\"new-password\">\r\n                                </div>\r\n                            </div>\r\n\r\n                            <div class=\"row mb-0\">\r\n                                <div class=\"col-md-6 offset-md-4\">\r\n                                    <button type=\"submit\" class=\"btn btn-primary\">\r\n                                        Register\r\n                                    </button>\r\n                                </div>\r\n                            </div>\r\n                        </form>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div> "), _hoisted_1], 2112
-  /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */
-  );
+  var _component_router_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-link");
+
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [$data.error !== null ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.error), 1
+  /* TEXT */
+  )])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    id: "firstname",
+    type: "firstname",
+    "class": "form-control",
+    "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
+      return $data.firstname = $event;
+    }),
+    required: "",
+    autofocus: "",
+    autocomplete: "off",
+    placeholder: "Enter First Name"
+  }, null, 512
+  /* NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.firstname]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    id: "Lastname",
+    type: "lastname",
+    "class": "form-control",
+    "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
+      return $data.lastname = $event;
+    }),
+    required: "",
+    autofocus: "",
+    autocomplete: "off",
+    placeholder: "Enter Last Name"
+  }, null, 512
+  /* NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.lastname]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [_hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    id: "email",
+    type: "email",
+    "class": "form-control",
+    "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
+      return $data.email = $event;
+    }),
+    required: "",
+    autofocus: "",
+    autocomplete: "off",
+    placeholder: "Enter Email Address"
+  }, null, 512
+  /* NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.email]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [_hoisted_19, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    id: "password",
+    type: "password",
+    "class": "form-control",
+    "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
+      return $data.password = $event;
+    }),
+    required: "",
+    autofocus: "",
+    autocomplete: "off",
+    placeholder: "Enter Password"
+  }, null, 512
+  /* NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.password]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    type: "submit",
+    "class": "btn btn-success",
+    onClick: _cache[4] || (_cache[4] = function () {
+      return $options.handleSubmit && $options.handleSubmit.apply($options, arguments);
+    })
+  }, " Register ")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", _hoisted_25, [_hoisted_26, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    to: "/login"
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_27];
+    }),
+    _: 1
+    /* STABLE */
+
+  })])])])])])])])])]);
 }
 
 /***/ }),
@@ -23270,58 +23670,60 @@ var _hoisted_7 = {
 
 var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Dashboard");
 
-var _hoisted_9 = {
+var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Logout");
+
+var _hoisted_10 = {
   key: 1,
   "class": "nav navbar-nav navbar-right"
 };
 
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Home");
+var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Home");
 
-var _hoisted_11 = {
+var _hoisted_12 = {
   key: 0
 };
 
-var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
   "class": "page-scroll",
   href: "#features"
 }, "features", -1
 /* HOISTED */
 );
 
-var _hoisted_13 = [_hoisted_12];
-var _hoisted_14 = {
+var _hoisted_14 = [_hoisted_13];
+var _hoisted_15 = {
   key: 1
 };
 
-var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
   "class": "page-scroll",
   href: "#screenshot"
 }, "screens", -1
 /* HOISTED */
 );
 
-var _hoisted_16 = [_hoisted_15];
-var _hoisted_17 = {
+var _hoisted_17 = [_hoisted_16];
+var _hoisted_18 = {
   key: 2
 };
 
-var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
   "class": "page-scroll",
   href: "#testimonial"
 }, "testimonial", -1
 /* HOISTED */
 );
 
-var _hoisted_19 = [_hoisted_18];
+var _hoisted_20 = [_hoisted_19];
 
-var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Login");
+var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Login");
 
-var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Register");
+var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Register");
 
-function render(_ctx, _cache) {
+function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_router_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-link");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("header", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("nav", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [_ctx.isLoggedIn ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("ul", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("header", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("nav", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [$data.isLoggedIn ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("ul", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     to: "/dashboard",
     "class": "page-scroll"
   }, {
@@ -23331,27 +23733,35 @@ function render(_ctx, _cache) {
     _: 1
     /* STABLE */
 
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    to: "",
     "class": "page-scroll",
-    onClick: _cache[0] || (_cache[0] = function () {
-      return _ctx.logout && _ctx.logout.apply(_ctx, arguments);
-    })
-  }, "Logout")])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("ul", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
-    to: "/#home",
-    "class": "page-scroll"
+    onClick: $options.logout
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_10];
+      return [_hoisted_9];
     }),
     _: 1
     /* STABLE */
 
-  })]), _ctx.$route.name == 'home' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_11, _hoisted_13)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.$route.name == 'home' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_14, _hoisted_16)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.$route.name == 'home' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_17, _hoisted_19)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+  }, 8
+  /* PROPS */
+  , ["onClick"])])])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("ul", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    to: "/#home",
+    "class": "page-scroll"
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_11];
+    }),
+    _: 1
+    /* STABLE */
+
+  })]), _ctx.$route.name == 'home' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_12, _hoisted_14)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.$route.name == 'home' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_15, _hoisted_17)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.$route.name == 'home' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_18, _hoisted_20)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     to: "/login",
     "class": "page-scroll"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_20];
+      return [_hoisted_21];
     }),
     _: 1
     /* STABLE */
@@ -23361,7 +23771,7 @@ function render(_ctx, _cache) {
     "class": "page-scroll"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_21];
+      return [_hoisted_22];
     }),
     _: 1
     /* STABLE */
@@ -23521,7 +23931,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Home_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/Home.vue */ "./resources/js/components/Home.vue");
 /* harmony import */ var _components_Auth_RegisterPage_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/Auth/RegisterPage.vue */ "./resources/js/components/Auth/RegisterPage.vue");
 /* harmony import */ var _components_Auth_LoginPage_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Auth/LoginPage.vue */ "./resources/js/components/Auth/LoginPage.vue");
-/* harmony import */ var _components_AdminDashboard_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/AdminDashboard.vue */ "./resources/js/components/AdminDashboard.vue");
+/* harmony import */ var _components_Admin_Dashboard_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Admin/Dashboard.vue */ "./resources/js/components/Admin/Dashboard.vue");
 // import {createApp} from 'vue';
 
 
@@ -23535,19 +23945,44 @@ var routes = [{
 }, {
   path: '/register',
   name: 'register',
+  meta: {
+    guestOnly: true
+  },
   component: _components_Auth_RegisterPage_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
 }, {
   path: '/login',
   name: 'login',
+  meta: {
+    guestOnly: true
+  },
   component: _components_Auth_LoginPage_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
 }, {
   path: '/dashboard',
   name: 'dashboard',
-  component: _components_AdminDashboard_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+  meta: {
+    requiresAuth: true
+  },
+  component: _components_Admin_Dashboard_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
 }];
 var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_4__.createRouter)({
   history: (0,vue_router__WEBPACK_IMPORTED_MODULE_4__.createWebHistory)(),
   routes: routes
+});
+router.beforeEach(function (to, from, next) {
+  if (to.meta && to.meta.requiresAuth && !window.laravel.isLoggedIn) {
+    console.log(window.laravel);
+    return next({
+      name: 'login'
+    });
+  }
+
+  if (to.meta && to.meta.guestOnly && window.laravel.isLoggedIn) {
+    return next({
+      name: 'dashboard'
+    });
+  }
+
+  next();
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (router);
 
@@ -28839,7 +29274,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n    \r\n/*3.Start Header Area css*/\nheader {\r\n    position:absolute;\r\n    left: 0;\r\n    /* top: 20px; */\r\n    width:100%;\r\n    z-index: 9999;\n}\nheader.sticky{\r\n    position: fixed;\r\n    top: 0;\r\n    background: #5627b4;\r\n    background: -webkit-gradient(left top, left bottom, color-stop(0%, #5627b4), color-stop(100%, #934dbe));\r\n    background: linear-gradient(to bottom, #5627b4 0%, #934dbe 100%);\n}\n.sticky .navbar-default .navbar-nav li a{\r\n    color: #fff;\n}\n.navbar-default {\r\n    background-color: transparent;\r\n    border: none;\r\n    text-transform:uppercase;\r\n    margin-bottom: 0px;\r\n    padding: 15px 0;\r\n    transition: .5s;\n}\n.navbar-default .navbar-brand {\r\n    margin-top: -15px;\r\n    color: #fff;\n}\n.navbar-default .navbar-nav li a{\r\n    color:#fff;\r\n    font-size: 16px;\r\n    text-transform: capitalize;\r\n    transition: .5s;\n}\n.navbar-default .navbar-nav li a:hover,\r\n.navbar-default .navbar-nav li a:focus {\r\n    color:#fff;\n}\n.navbar-default .navbar-nav li a{\r\n    border-radius: 30px;\r\n    line-height: 10px;\n}\n.navbar-default .navbar-toggle {\r\n    background:#fff;\r\n    border:none;\r\n    border-radius:0\n}\n.navbar-default .navbar-toggle:hover,\r\n.navbar-default .navbar-toggle:focus {\r\n    background:#fff\n}\n.navbar-default .navbar-toggle .icon-bar {\r\n    background-color: #944dbe;\n}\r\n/*End Header Area css*/\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\r\n    \r\n/*3.Start Header Area css*/\nheader {\r\n    position:relative;\r\n    left: 0;\r\n    /* top: 20px; */\r\n    width:100%;\r\n    z-index: 9999;\n}\nheader.sticky{\r\n    position: fixed;\r\n    top: 0;\r\n    background: #5627b4;\r\n    background: -webkit-gradient(left top, left bottom, color-stop(0%, #5627b4), color-stop(100%, #934dbe));\r\n    background: linear-gradient(to bottom, #5627b4 0%, #934dbe 100%);\n}\n.sticky .navbar-default .navbar-nav li a{\r\n    color: #fff;\n}\n.navbar-default {\r\n    background-color: transparent;\r\n    border: none;\r\n    text-transform:uppercase;\r\n    margin-bottom: 0px;\r\n    padding: 15px 0;\r\n    transition: .5s;\n}\n.navbar-default .navbar-brand {\r\n    margin-top: -15px;\r\n    color: #fff;\n}\n.navbar-default .navbar-nav li a{\r\n    color:#fff;\r\n    font-size: 16px;\r\n    text-transform: capitalize;\r\n    transition: .5s;\n}\n.navbar-default .navbar-nav li a:hover,\r\n.navbar-default .navbar-nav li a:focus {\r\n    color:#fff;\n}\n.navbar-default .navbar-nav li a{\r\n    border-radius: 30px;\r\n    line-height: 10px;\n}\n.navbar-default .navbar-toggle {\r\n    background:#fff;\r\n    border:none;\r\n    border-radius:0\n}\n.navbar-default .navbar-toggle:hover,\r\n.navbar-default .navbar-toggle:focus {\r\n    background:#fff\n}\n.navbar-default .navbar-toggle .icon-bar {\r\n    background-color: #944dbe;\n}\r\n/*End Header Area css*/\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -28864,7 +29299,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n/*-------------------------------------\r\n    Template Name: Stfpp software landing page.\r\n    Template URI: https://ryetheme.net\r\n    Description: Stfpp software landing page.\r\n    Author: Webtend\r\n    Author URI: https://ryetheme.net\r\n    Version: 1.0\r\n    ---------------------------------------\r\n    CSS INDEX\r\n    ---------------------------------------\r\n    1.Theme Default css\r\n    2.Prelodar area css\r\n    3.Header Aera css\r\n    4.header-bg-1 section css\r\n    5.header-bg-2 section css\r\n    6.header-bg-3 section css\r\n    7.Feature section css\r\n    8.project-area section css\r\n    9.Dashboard section css\r\n    10.Video section css\r\n    11.soft-feature section css\r\n    12.signup section css\r\n    13.Screenshot section css\r\n    14.Testimonial section css\r\n    15.Pricing section css\r\n    16.Download section css\r\n    17.Free-Trial section css\r\n    18.Contact section css\r\n    19.Footer area css\r\n    20.Scroll up css\r\n    21.index.html csss\r\n    ---------------------------------------*/\r\n    /*1.Start Theme Default css*/\n* {\r\n        margin:0;\r\n        padding:0\n}\na {\r\n        text-decoration:none\n}\na:hover,\r\n    a:focus {\r\n        text-decoration:none\n}\nul{\r\n        margin-bottom: 0;\n}\nli {\r\n        list-style:none\n}\nh1,h2,h3,h4,h5,h6{\r\n        margin: 0;\n}\np{\r\n        margin: 0;\n}\nbody{\r\n        font-family: 'Raleway', sans-serif;\r\n        font-size: 14px;\r\n        line-height: 26px;\r\n        font-weight: 300;\r\n        color: #565656;\n}\nsection {\r\n        overflow:hidden\n}\n.section-padding{\r\n        padding: 85px 0;\n}\n.stfpp-title{\r\n        margin-bottom: 80px;\n}\n.stfpp-title h2{\r\n        font-weight: 600;\r\n        color: #944dbe;\r\n        text-transform: uppercase;\n}\n.stfpp-title h2:after{\r\n        display: block;\r\n        content: '';\r\n        width: 200px;\r\n        height: 1px;\r\n        background: #5224b3;\r\n        margin: 40px auto 0 auto;\n}\n.stfpp-title h2:before{\r\n        display: block;\r\n        content: '';\r\n        width: 100px;\r\n        height: 3px;\r\n        background: #5224b3;\r\n        position: absolute;\r\n        top: 47%;\r\n        left: 46%;\n}\n.s-title h2{\r\n        color: #fff;\n}\n.s-title h2:after{\r\n        background: #eaeaea;\n}\n.s-title h2:before{\r\n        background: #fff;\n}\n.stfpp-btn{\r\n        padding: 20px 40px;\r\n        background: #8c48bc;\r\n        font-size: 14px;\r\n        font-weight: 600;\r\n        color: #fff;\r\n        text-transform: uppercase;\r\n        border-radius: 5px;\r\n        cursor: pointer;\n}\n.stfpp-btn:hover,\r\n    .stfpp-btn:focus{\r\n        color: #fff;\n}\r\n    /*End Theme Default css*/\r\n\r\n    /*2.Start Preloder Area css*/\n.preloder{\r\n        position: fixed;\r\n        background: #fff;\r\n        z-index: 11000;\r\n        height: 100%;\r\n        width: 100%;\r\n        overflow: hidden;\n}\n.spinner {\r\n    margin: 25% auto;\r\n    width: 70px;\r\n    text-align: center;\n}\n.spinner > div {\r\n    width: 18px;\r\n    height: 18px;\r\n    background-color: #944dbe;\r\n\r\n    border-radius: 100%;\r\n    display: inline-block;\r\n    -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;\r\n    animation: sk-bouncedelay 1.4s infinite ease-in-out both;\n}\n.spinner .bounce1 {\r\n    -webkit-animation-delay: -0.32s;\r\n    animation-delay: -0.32s;\n}\n.spinner .bounce2 {\r\n    -webkit-animation-delay: -0.16s;\r\n    animation-delay: -0.16s;\n}\n@-webkit-keyframes sk-bouncedelay {\n0%, 80%, 100% { -webkit-transform: scale(0)\n}\n40% { -webkit-transform: scale(1.0)\n}\n}\n@keyframes sk-bouncedelay {\n0%, 80%, 100% {\r\n        transform: scale(0);\n}\n40% {\r\n        transform: scale(1.0);\n}\n}\r\n    /*End Preloder Area css*/\r\n\r\n    /*3.Start Header Area css*/\r\n    /* header {\r\n        position:absolute;\r\n        left: 0;\r\n        top: 20px;\r\n        width:100%;\r\n        z-index: 9999;\r\n    }\r\n    header.sticky{\r\n        position: fixed;\r\n        top: 0;\r\n        background: #5627b4;\r\n        background: -moz-linear-gradient(top, #5627b4 0%, #934dbe 100%);\r\n        background: -webkit-gradient(left top, left bottom, color-stop(0%, #5627b4), color-stop(100%, #934dbe));\r\n        background: -webkit-linear-gradient(top, #5627b4 0%, #934dbe 100%);\r\n        background: -o-linear-gradient(top, #5627b4 0%, #934dbe 100%);\r\n        background: -ms-linear-gradient(top, #5627b4 0%, #934dbe 100%);\r\n        background: linear-gradient(to bottom, #5627b4 0%, #934dbe 100%);\r\n    }\r\n    .sticky .navbar-default .navbar-nav li a{\r\n        color: #fff;\r\n    }\r\n    .navbar-default {\r\n        background-color: transparent;\r\n        border: none;\r\n        text-transform:uppercase;\r\n        margin-bottom: 0px;\r\n        padding: 15px 0;\r\n        transition: .5s;\r\n    }\r\n    .navbar-default .navbar-brand {\r\n        margin-top: -15px;\r\n        color: #fff;\r\n    }\r\n    .navbar-default .navbar-nav li a{\r\n        color:#fff;\r\n        font-size: 16px;\r\n        text-transform: capitalize;\r\n        transition: .5s;\r\n    }\r\n    .navbar-default .navbar-nav li a:hover,\r\n    .navbar-default .navbar-nav li a:focus {\r\n        color:#fff;\r\n    }\r\n    .navbar-default .navbar-nav li a{\r\n        border-radius: 30px;\r\n        line-height: 10px;\r\n    }\r\n    .navbar-default .navbar-toggle {\r\n        background:#fff;\r\n        border:none;\r\n        border-radius:0\r\n    }\r\n    .navbar-default .navbar-toggle:hover,\r\n    .navbar-default .navbar-toggle:focus {\r\n        background:#fff\r\n    }\r\n    .navbar-default .navbar-toggle .icon-bar {\r\n        background-color: #944dbe;\r\n    } */\r\n    /*End Header Area css*/\r\n\r\n    /*4.Start header-bg-1 section css*/\n.stfpp-overlay{\r\n        position: absolute;\r\n        left: 0;\r\n        top: 0;\r\n        height: 100%;\r\n        width: 100%;\r\n        background: #5627b4;\r\n        background: -webkit-gradient(left top, left bottom, color-stop(0%, #5627b4), color-stop(100%, #934dbe));\r\n        background: linear-gradient(to bottom, #5627b4 0%, #934dbe 100%);\r\n        opacity: .9;\n}\n.header-bg-1{\r\n        background: url(#) no-repeat;\r\n        background-size: 90% 48%;\r\n        background-position: center;\r\n        position: relative;\r\n        padding-bottom: 300px;\r\n        padding-top: 200px;\r\n        z-index: 337;\n}\n.hero-area{\r\n        position: relative;\n}\n.hero-text{\r\n        position: relative;\n}\n.hero-text h1{\r\n        font-size: 48px;\r\n        text-transform: uppercase;\r\n        font-weight: 600;\r\n        color: #fff;\r\n        margin-bottom: 25px;\r\n        z-index: 1;\n}\n.hero-text p{\r\n        color: #fff;\r\n        margin-bottom: 50px;\n}\n.h-1{\r\n        margin-bottom: 200px;\n}\n.hero-img {\r\n        position: absolute;\r\n        top: 126%;\r\n        left: 15%;\r\n        z-index: -1;\n}\r\n    /*End header-bg-1 section css*/\r\n\r\n    /*5.Start header-bg-2 section css*/\n.header-bg-2{\r\n        background: url(#) no-repeat;\r\n        background-size: 90% 48%;\r\n        background-position: center;\r\n        position: relative;\r\n        padding-bottom: 300px;\r\n        padding-top: 200px;\n}\n.h-2{\r\n        margin-bottom: 200px;\n}\n.hero-img-2{\r\n        position: absolute;\r\n        top: 126%;\r\n        left: 15%;\r\n        z-index: 337;\n}\r\n    /*End header-bg-2 section css*/\r\n\r\n    /*6.Start header-bg-3 section css*/\n.header-bg-3{\r\n        background: url(#) no-repeat;\r\n        background-size: 90% 48%;\r\n        background-position: center;\r\n        position: relative;\r\n        padding-bottom: 300px;\r\n        padding-top: 200px;\n}\n.h-3{\r\n        margin-bottom: 200px;\n}\n.hero-img-3{\r\n        position: absolute;\r\n        top: 126%;\r\n        left: 15%;\r\n        z-index: 337;\n}\n#curve{\r\n        position: absolute;\r\n        width: 100%;\r\n        bottom: -1px;\r\n        transform: rotate(-180deg);\n}\n#curve path{\r\n        fill: #fff;\n}\r\n    /*End header-bg-3 section css*/\r\n\r\n    /*7.Start feature section css*/\n.feature{\r\n        position: relative;\n}\n.feature-box{\r\n        text-align: center;\r\n        background: #fff;\r\n        padding: 20px;\r\n        margin-bottom: 50px;\r\n        border: 1px solid #eaeaea;\r\n        border-radius: 10px;\r\n        transition: .5s;\n}\n.feature-box:hover{\r\n        box-shadow: 0 0 15px #eaeaea;\n}\n.feature-icon {\r\n        width: 60px;\r\n        height: 60px;\r\n        background: #fff;\r\n        padding: 15px;\r\n        box-shadow: 0 0 7px -2px rgba(0,0,0,.2);\r\n        border-radius: 50%;\r\n        margin-left: auto;\r\n        margin-right: auto;\r\n        position: relative;\r\n        bottom: 50px;\r\n        margin-bottom: -30px;\n}\n.feature-icon i{\r\n        font-size: 30px;\r\n        color: #944dbe;\n}\n.feature-deitails h4{\r\n        padding-bottom: 30px;\r\n        text-transform: uppercase;\r\n        color: #2c2c2c;\n}\r\n    /*End feature section css*/\r\n\r\n    /*8.Start Project-area section css*/\n.project-area{\r\n        background: #5627b4;\r\n        background: -webkit-gradient(left top, left bottom, color-stop(0%, #5627b4), color-stop(100%, #934dbe));\r\n        background: linear-gradient(to bottom, #5627b4 0%, #934dbe 100%);\n}\n.countdown{\r\n        text-align: center;\n}\n.countdown h5{\r\n        color: #fff;\n}\n.countdown h5:after{\r\n        display: block;\r\n        content: '';\r\n        width: 200px;\r\n        height: 1px;\r\n        background: #fff;\r\n        margin: 30px auto 30px auto;\n}\n.countdown h2{\r\n        color: #fff;\n}\r\n    /*End Project-area section css*/\r\n\r\n    /*9.Start dashboard section css*/\n.dash-title{\r\n        margin-bottom: 50px;\n}\n.dash-title h2{\r\n        font-weight: 600;\r\n        color: #944dbe;\r\n        text-transform: uppercase;\n}\n.dash-title h2:after{\r\n        display: block;\r\n        content: '';\r\n        width: 200px;\r\n        height: 1px;\r\n        background: #5224b3;\r\n        margin: 30px 0 30px 0;\n}\n.dash-title h2:before{\r\n        display: block;\r\n        content: '';\r\n        width: 100px;\r\n        height: 3px;\r\n        background: #5224b3;\r\n        position: absolute;\r\n        top: 61.9px;\r\n        left: 12%;\n}\n.dash-box{\r\n        margin-bottom: 50px;\n}\n.dash-icon{\r\n        position: relative;\r\n        padding-left: 60px;\r\n        margin-bottom: 15px;\n}\n.dash-icon i{\r\n        position: absolute;\r\n        left: 0;\r\n        top: -6px;\r\n        font-size: 30px;\r\n        color: #944dbe;\n}\n.dash-right{\r\n        position: relative;\r\n        padding-top: 220px;\n}\n.dash-img-1 img {\r\n        position: absolute;\r\n        left: 117px;\r\n        width: 520px;\n}\n.dash-img-2 img {\r\n        position: absolute;\r\n        left: -17px;\r\n        z-index: -1;\n}\r\n    /*End dashboard section css*/\r\n\r\n    /*10.Start video section css*/\n.video {\r\n        background: rgba(0, 0, 0, 0) url(#) no-repeat scroll top center;\r\n        background-size: 80%;\r\n        background-position: 50% 320px;\r\n        background-repeat: no-repeat;\r\n        position: relative;\n}\n.video-overlay{\r\n        position: absolute;\r\n        top: 0;\r\n        left: 0;\r\n        width: 100%;\r\n        height: 100%;\r\n        background: #5627b4;\r\n        background: -webkit-gradient(left top, left bottom, color-stop(0%, #5627b4), color-stop(100%, #934dbe));\r\n        background: linear-gradient(to bottom, #5627b4 0%, #934dbe 100%);\r\n        opacity: .9;\n}\n.video-text{\r\n        position: relative;\r\n        margin-bottom: 125px;\n}\n.video-text p{\r\n        padding: 0 26%;\r\n        color: #fff;\n}\n.video-area{\r\n        position: relative;\r\n        margin-bottom: 200px;\n}\n.video-area a i {\r\n        width: 100px;\r\n        height: 100px;\r\n        line-height: 100px;\r\n        text-align: center;\r\n        color: #fff;\r\n        font-size: 42px;\r\n        background: #944dbe;\r\n        border-radius: 50%;\r\n        padding-left: 10px;\n}\r\n    /*End video section css*/\r\n\r\n    /*11.Start soft-feature section css*/\n.soft-feature-right{\r\n        position: relative;\n}\n.soft-feature-right h2{\r\n        text-transform: uppercase;\r\n        color: #944dbe;\n}\n.soft-feature-right h2:after{\r\n        display: block;\r\n        content: '';\r\n        width: 200px;\r\n        height: 1px;\r\n        background: #5224b3;\r\n        margin: 30px 0 30px 0;\n}\n.soft-feature-right h2:before{\r\n        display: block;\r\n        content: '';\r\n        width: 100px;\r\n        height: 3px;\r\n        background: #5224b3;\r\n        position: absolute;\r\n        top: 46.2%;\r\n        left: 10%;\n}\n.soft-feature-right p{\r\n        margin-bottom: 30px;\n}\n.s-feature-area{\r\n        position: relative;\n}\n.s-feature-area::after {\r\n        position: absolute;\r\n        content: '';\r\n        bottom: 0;\r\n        left: 5%;\r\n        margin-left: -2px;\r\n        border-radius: 0;\r\n        z-index: -1;\r\n        width: 2px;\r\n        background-color: #944dbe;\r\n        top: 50px;\r\n        height: 167px;\n}\n.s-feature-box{\r\n        position: relative;\r\n        margin-bottom: 30px;\n}\n.s-feature-box .media-left, .media>.pull-left{\r\n        padding-right: 30px;\n}\n.media-icon span {\r\n        font-size: 30px;\r\n        font-weight: 600;\r\n        height: 50px;\r\n        width: 50px;\r\n        text-align: center;\r\n        line-height: 45px;\r\n        background: #944dbe;\r\n        display: block;\r\n        border-radius: 50%;\r\n        color: #fff;\n}\r\n    /*End soft-feature section css*/\r\n\r\n    /*12.Start signup section css*/\n.signup{\r\n        background: #5627b4;\r\n        background: -webkit-gradient(left top, left bottom, color-stop(0%, #5627b4), color-stop(100%, #934dbe));\r\n        background: linear-gradient(to bottom, #5627b4 0%, #934dbe 100%);\n}\n.trial-text p{\r\n        color: #fff;\r\n        margin-bottom: 30px;\r\n        padding: 0 26%;\n}\n.trial-text .stfpp-btn{\r\n        padding: 20px 50px;\r\n        background: #fff;\r\n        color: #944dbe;\n}\r\n    /*End signup section css*/\r\n\r\n    /*13.Start screenshot section css*/\n.screenshot-button{\r\n        margin-bottom: 40px;\n}\n.screenshot-button .screenshot-btn{\r\n        padding: 20px 45px;\r\n        text-align: center;\r\n        background: transparent;\r\n        color: #944dbe;\r\n        border: 1px solid #944dbe;\r\n        font-size: 14px;\r\n        text-transform: uppercase;\r\n        font-weight: 600;\r\n        border-radius: 10px;\r\n        margin-right: 10px;\n}\n.screenshot-button .screenshot-btn:active,\r\n    .screenshot-button .screenshot-btn.is-checked {\r\n        color: #fff;\r\n        background: #944dbe;\n}\n.padding{\r\n        padding-left: 5px; \r\n        padding-right: 5px;\r\n        margin-bottom: 14px;\n}\n.portfolio-item {\r\n        position: relative;\r\n        overflow: hidden;\r\n        cursor: pointer;\n}\n.portfolio-item img {\r\n        width: 100%;\r\n        height: 100%;\n}\r\n    /*End screenshot section css*/\r\n\r\n    /*14.Start Testimonial section css*/\n.testimonial{\r\n        background: #f6f6f6;\n}\n.owl-carousel .owl-stage{\r\n        margin-top: 50px;\n}\n.client-area{\r\n        text-align: center;\r\n        background: #fff;\r\n        padding: 20px;\r\n        border: 1px solid #eaeaea;\r\n        border-radius: 10px;\r\n        transition: .5s;\n}\n.client-area:hover{\r\n        box-shadow: 0 0 15px #eaeaea;\n}\n.client-img img{\r\n        width: 60px !important;\r\n        height: 60px !important;\r\n        background: #fff;\r\n        box-shadow: 0 0 7px -2px rgba(0,0,0,.2);\r\n        border-radius: 50%;\r\n        margin-left: auto;\r\n        margin-right: auto;\r\n        position: relative;\r\n        bottom: 50px;\r\n        margin-bottom: -30px;\n}\n.client-review h4{\r\n        padding-top: 30px;\r\n        text-transform: uppercase;\r\n        color: #2c2c2c;\n}\n.client-slide .owl-dot {\r\n        height: 12px;\r\n        width: 12px;\r\n        border: 1px solid #eaeaea !important;\r\n        border-radius: 10px;\r\n        margin: 0 .2rem;\r\n        transition: all .25s ease-in-out;\n}\n.client-slide .owl-dot.active {\r\n        height: 12px;\r\n        width: 12px;\r\n        background-color: #944dbe;\r\n        border-radius: 50%;\r\n        border: none !important;\n}\n.client-slide .owl-dots{\r\n        margin-top: 20px;\r\n        text-align: center;\n}\r\n    /*End Testimonial section css*/\r\n\r\n    /*15.Start Pricing section css*/\n.pricing-table{\r\n        overflow: hidden;\r\n        position: relative;\r\n        box-shadow: 0 0 20px #eaeaea;\r\n        border-radius: 10px;\n}\n.pricing-head{\r\n        background: #5627b4;\r\n        background: -webkit-gradient(left top, left bottom, color-stop(0%, #5627b4), color-stop(100%, #934dbe));\r\n        background: linear-gradient(to bottom, #5627b4 0%, #934dbe 100%);\r\n        padding: 20px;\n}\n.pricing-head{\r\n        padding-top: 65px;\r\n        padding-bottom: 65px;\r\n        padding-left: 70px;\n}\n.pricing-head h5{\r\n        color: #fff;\r\n        text-transform: uppercase;\r\n        font-weight: 600;\r\n        margin-bottom: 15px;\n}\n.pricing-head h2{\r\n        color: #fff;\n}\n.pricing-head h2 span{\r\n        font-size: 14px;\r\n        font-weight: bold;\n}\n.pricing-body{\r\n        margin-bottom: 50px;\n}\n.pricing-body ul li {\r\n        padding-left: 70px;\r\n        padding-bottom: 25px;\r\n        padding-top: 25px;\r\n        border-bottom: 1px solid #eaeaea;\n}\n.pricing-body ul li i{\r\n        margin-right: 25px;\r\n        font-size: 14px;\r\n        color: #944dbe;\n}\n.pricing-btn{\r\n        padding-left: 70px;\r\n        padding-bottom: 50px;\n}\n.price-btn {\r\n        padding: 20px 40px;\r\n        border: 1px solid #944dbe;\r\n        font-size: 14px;\r\n        font-weight: 600;\r\n        text-transform: uppercase;\r\n        border-radius: 10px;\r\n        color: #944dbe;\r\n        transition: .5s;\n}\n.price-btn:hover,\r\n    .price-btn:focus{\r\n        background: #944dbe;\r\n        color: #fff;\n}\n.price-btn.checked{\r\n        background: #944dbe;\r\n        color: #fff;\n}\r\n    /*End Pricing section css*/\r\n\r\n    /*16.Start download section css*/\n.download{\r\n        background: #5627b4;\r\n        background: -webkit-gradient(left top, left bottom, color-stop(0%, #5627b4), color-stop(100%, #934dbe));\r\n        background: linear-gradient(to bottom, #5627b4 0%, #934dbe 100%);\n}\n.download-text p{\r\n        color: #fff;\r\n        padding-bottom: 30px;\n}\n.download-text .stfpp-btn{\r\n        background: #fff;\r\n        color: #8242bb;\n}\r\n    /*End download section css*/\r\n\r\n    /*17.Start Free-trial section css*/\n.contact-btn{\r\n        padding: 20px 60px;\r\n        background: #944dbe;\r\n        color: #fff;\r\n        font-size: 14px;\r\n        text-transform: uppercase;\r\n        border: none;\r\n        font-weight: 600;\r\n        border-radius: 10px;\n}\n.form-control{\r\n        height: 45px;\n}\r\n    /*End Free-trial section css*/\r\n\r\n    /*18.Start contact section css*/\n.contact{\r\n        background: #5627b4;\r\n        background: -webkit-gradient(left top, left bottom, color-stop(0%, #5627b4), color-stop(100%, #934dbe));\r\n        background: linear-gradient(to bottom, #5627b4 0%, #934dbe 100%);\n}\n.widget-text{\r\n        position: relative;\r\n        padding-left: 60px;\r\n        margin-bottom: 15px;\n}\n.widget-text i{\r\n        position: absolute;\r\n        left: 0;\r\n        top: -6px;\r\n        font-size: 30px;\r\n        color: #ffffff;\n}\n.widget-text p{\r\n        color: #fff;\n}\r\n    /*End contact section css*/\r\n\r\n\r\n\r\n    /*20.Start Scroll up css*/\n#scroll-up {\r\n        position: fixed;\r\n        z-index: 337;\r\n        bottom:30px;\r\n        right: 10px;\r\n        width: 40px;\r\n        height: 40px;\r\n        color: #fff;\r\n        font-size: 24px;\r\n        line-height: 40px;\r\n        text-align: center;\r\n        border-radius: 50%;\r\n        text-decoration: none;\r\n        cursor: pointer;\r\n        transition: all 0.25s;\r\n        display: none;\r\n        background: #944dbe;\n}\n#scroll-up:hover,\r\n    #scroll-up:focus{\r\n        background: #944dbe;\r\n        color: #fff;\n}\r\n    /*16.End Scroll up css*/\r\n\r\n    /*21.Start Index.html css*/\n.stfpp-bg{\r\n        background: #5627b4;\r\n        background: -webkit-gradient(left top, left bottom, color-stop(0%, #5627b4), color-stop(100%, #934dbe));\r\n        background: linear-gradient(to bottom, #5627b4 0%, #934dbe 100%);\r\n        position: relative;\r\n        padding-top: 200px;\r\n        padding-bottom: 200px;\n}\n.bg-title img{\r\n        margin: 0 auto;\r\n        padding-bottom: 30px;\n}\n.bg-title h1{\r\n        color: #fff;\r\n        text-transform: uppercase;\n}\n.category{\r\n        margin-bottom: 60px;\n}\n.cat-img img{\r\n        width: 100%;\n}\n.cat-title{\r\n        margin-bottom: 20px;\r\n        text-align: center;\n}\n.cat-title h4{\r\n        text-transform: uppercase;\r\n        color: #944dbe;\r\n        font-weight: 700;\n}\n.cat-button{\r\n        margin-top: 30px;\r\n        text-align: center;\n}\n.cat-button a{\r\n        padding: 15px 25px;\r\n        background: #944dbe;\r\n        color: #fff;\r\n        text-transform: uppercase;\r\n        font-weight: 600;\r\n        font-size: 16px;\r\n        border-radius: 5px;\n}\r\n    /*End Index.html css*/\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\r\n/*-------------------------------------\r\n    Template Name: Stfpp software landing page.\r\n    Template URI: https://ryetheme.net\r\n    Description: Stfpp software landing page.\r\n    Author: Webtend\r\n    Author URI: https://ryetheme.net\r\n    Version: 1.0\r\n    ---------------------------------------\r\n    CSS INDEX\r\n    ---------------------------------------\r\n    1.Theme Default css\r\n    2.Prelodar area css\r\n    3.Header Aera css\r\n    4.header-bg-1 section css\r\n    5.header-bg-2 section css\r\n    6.header-bg-3 section css\r\n    7.Feature section css\r\n    8.project-area section css\r\n    9.Dashboard section css\r\n    10.Video section css\r\n    11.soft-feature section css\r\n    12.signup section css\r\n    13.Screenshot section css\r\n    14.Testimonial section css\r\n    15.Pricing section css\r\n    16.Download section css\r\n    17.Free-Trial section css\r\n    18.Contact section css\r\n    19.Footer area css\r\n    20.Scroll up css\r\n    21.index.html csss\r\n    ---------------------------------------*/\r\n    /*1.Start Theme Default css*/\n* {\r\n        margin:0;\r\n        padding:0\n}\na {\r\n        text-decoration:none\n}\na:hover,\r\n    a:focus {\r\n        text-decoration:none\n}\nul{\r\n        margin-bottom: 0;\n}\nli {\r\n        list-style:none\n}\nh1,h2,h3,h4,h5,h6{\r\n        margin: 0;\n}\np{\r\n        margin: 0;\n}\nbody{\r\n        font-family: 'Raleway', sans-serif;\r\n        font-size: 14px;\r\n        line-height: 26px;\r\n        font-weight: 300;\r\n        color: #565656;\n}\nsection {\r\n        overflow:hidden\n}\n.section-padding{\r\n        padding: 85px 0;\n}\n.stfpp-title{\r\n        margin-bottom: 80px;\n}\n.stfpp-title h2{\r\n        font-weight: 600;\r\n        color: #944dbe;\r\n        text-transform: uppercase;\n}\n.stfpp-title h2:after{\r\n        display: block;\r\n        content: '';\r\n        width: 200px;\r\n        height: 1px;\r\n        background: #5224b3;\r\n        margin: 40px auto 0 auto;\n}\n.stfpp-title h2:before{\r\n        display: block;\r\n        content: '';\r\n        width: 100px;\r\n        height: 3px;\r\n        background: #5224b3;\r\n        position: absolute;\r\n        top: 47%;\r\n        left: 46%;\n}\n.s-title h2{\r\n        color: #fff;\n}\n.s-title h2:after{\r\n        background: #eaeaea;\n}\n.s-title h2:before{\r\n        background: #fff;\n}\n.stfpp-btn{\r\n        padding: 20px 40px;\r\n        background: #8c48bc;\r\n        font-size: 14px;\r\n        font-weight: 600;\r\n        color: #fff;\r\n        text-transform: uppercase;\r\n        border-radius: 5px;\r\n        cursor: pointer;\n}\n.stfpp-btn:hover,\r\n    .stfpp-btn:focus{\r\n        color: #fff;\n}\r\n    /*End Theme Default css*/\r\n\r\n    /*2.Start Preloder Area css*/\n.preloder{\r\n        position: fixed;\r\n        background: #fff;\r\n        z-index: 11000;\r\n        height: 100%;\r\n        width: 100%;\r\n        overflow: hidden;\n}\n.spinner {\r\n    margin: 25% auto;\r\n    width: 70px;\r\n    text-align: center;\n}\n.spinner > div {\r\n    width: 18px;\r\n    height: 18px;\r\n    background-color: #944dbe;\r\n\r\n    border-radius: 100%;\r\n    display: inline-block;\r\n    -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;\r\n    animation: sk-bouncedelay 1.4s infinite ease-in-out both;\n}\n.spinner .bounce1 {\r\n    -webkit-animation-delay: -0.32s;\r\n    animation-delay: -0.32s;\n}\n.spinner .bounce2 {\r\n    -webkit-animation-delay: -0.16s;\r\n    animation-delay: -0.16s;\n}\n@-webkit-keyframes sk-bouncedelay {\n0%, 80%, 100% { -webkit-transform: scale(0)\n}\n40% { -webkit-transform: scale(1.0)\n}\n}\n@keyframes sk-bouncedelay {\n0%, 80%, 100% {\r\n        transform: scale(0);\n}\n40% {\r\n        transform: scale(1.0);\n}\n}\r\n    /*End Preloder Area css*/\r\n\r\n    /*3.Start Header Area css*/\r\n  \r\n\r\n    /*4.Start header-bg-1 section css*/\n.stfpp-overlay{\r\n        position: absolute;\r\n        left: 0;\r\n        top: 0;\r\n        height: 100%;\r\n        width: 100%;\r\n        background: #5627b4;\r\n        background: -webkit-gradient(left top, left bottom, color-stop(0%, #5627b4), color-stop(100%, #934dbe));\r\n        background: linear-gradient(to bottom, #5627b4 0%, #934dbe 100%);\r\n        opacity: .9;\n}\n.header-bg-1{\r\n        background: url(#) no-repeat;\r\n        background-size: 90% 48%;\r\n        background-position: center;\r\n        position: relative;\r\n        padding-bottom: 300px;\r\n        padding-top: 200px;\r\n        z-index: 337;\n}\n.hero-area{\r\n        position: relative;\n}\n.hero-text{\r\n        position: relative;\n}\n.hero-text h1{\r\n        font-size: 48px;\r\n        text-transform: uppercase;\r\n        font-weight: 600;\r\n        color: #fff;\r\n        margin-bottom: 25px;\r\n        z-index: 1;\n}\n.hero-text p{\r\n        color: #fff;\r\n        margin-bottom: 50px;\n}\n.h-1{\r\n        margin-bottom: 200px;\n}\n.hero-img {\r\n        position: absolute;\r\n        top: 126%;\r\n        left: 15%;\r\n        z-index: -1;\n}\r\n    /*End header-bg-1 section css*/\r\n\r\n    /*5.Start header-bg-2 section css*/\n.header-bg-2{\r\n        background: url(#) no-repeat;\r\n        background-size: 90% 48%;\r\n        background-position: center;\r\n        position: relative;\r\n        padding-bottom: 300px;\r\n        padding-top: 200px;\n}\n.h-2{\r\n        margin-bottom: 200px;\n}\n.hero-img-2{\r\n        position: absolute;\r\n        top: 126%;\r\n        left: 15%;\r\n        z-index: 337;\n}\r\n    /*End header-bg-2 section css*/\r\n\r\n    /*6.Start header-bg-3 section css*/\n.header-bg-3{\r\n        background: url(#) no-repeat;\r\n        background-size: 90% 48%;\r\n        background-position: center;\r\n        position: relative;\r\n        padding-bottom: 300px;\r\n        padding-top: 200px;\n}\n.h-3{\r\n        margin-bottom: 200px;\n}\n.hero-img-3{\r\n        position: absolute;\r\n        top: 126%;\r\n        left: 15%;\r\n        z-index: 337;\n}\n#curve{\r\n        position: absolute;\r\n        width: 100%;\r\n        bottom: -1px;\r\n        transform: rotate(-180deg);\n}\n#curve path{\r\n        fill: #fff;\n}\r\n    /*End header-bg-3 section css*/\r\n\r\n    /*7.Start feature section css*/\n.feature{\r\n        position: relative;\n}\n.feature-box{\r\n        text-align: center;\r\n        background: #fff;\r\n        padding: 20px;\r\n        margin-bottom: 50px;\r\n        border: 1px solid #eaeaea;\r\n        border-radius: 10px;\r\n        transition: .5s;\n}\n.feature-box:hover{\r\n        box-shadow: 0 0 15px #eaeaea;\n}\n.feature-icon {\r\n        width: 60px;\r\n        height: 60px;\r\n        background: #fff;\r\n        padding: 15px;\r\n        box-shadow: 0 0 7px -2px rgba(0,0,0,.2);\r\n        border-radius: 50%;\r\n        margin-left: auto;\r\n        margin-right: auto;\r\n        position: relative;\r\n        bottom: 50px;\r\n        margin-bottom: -30px;\n}\n.feature-icon i{\r\n        font-size: 30px;\r\n        color: #944dbe;\n}\n.feature-deitails h4{\r\n        padding-bottom: 30px;\r\n        text-transform: uppercase;\r\n        color: #2c2c2c;\n}\r\n    /*End feature section css*/\r\n\r\n    /*8.Start Project-area section css*/\n.project-area{\r\n        background: #5627b4;\r\n        background: -webkit-gradient(left top, left bottom, color-stop(0%, #5627b4), color-stop(100%, #934dbe));\r\n        background: linear-gradient(to bottom, #5627b4 0%, #934dbe 100%);\n}\n.countdown{\r\n        text-align: center;\n}\n.countdown h5{\r\n        color: #fff;\n}\n.countdown h5:after{\r\n        display: block;\r\n        content: '';\r\n        width: 200px;\r\n        height: 1px;\r\n        background: #fff;\r\n        margin: 30px auto 30px auto;\n}\n.countdown h2{\r\n        color: #fff;\n}\r\n    /*End Project-area section css*/\r\n\r\n    /*9.Start dashboard section css*/\n.dash-title{\r\n        margin-bottom: 50px;\n}\n.dash-title h2{\r\n        font-weight: 600;\r\n        color: #944dbe;\r\n        text-transform: uppercase;\n}\n.dash-title h2:after{\r\n        display: block;\r\n        content: '';\r\n        width: 200px;\r\n        height: 1px;\r\n        background: #5224b3;\r\n        margin: 30px 0 30px 0;\n}\n.dash-title h2:before{\r\n        display: block;\r\n        content: '';\r\n        width: 100px;\r\n        height: 3px;\r\n        background: #5224b3;\r\n        position: absolute;\r\n        top: 61.9px;\r\n        left: 12%;\n}\n.dash-box{\r\n        margin-bottom: 50px;\n}\n.dash-icon{\r\n        position: relative;\r\n        padding-left: 60px;\r\n        margin-bottom: 15px;\n}\n.dash-icon i{\r\n        position: absolute;\r\n        left: 0;\r\n        top: -6px;\r\n        font-size: 30px;\r\n        color: #944dbe;\n}\n.dash-right{\r\n        position: relative;\r\n        padding-top: 220px;\n}\n.dash-img-1 img {\r\n        position: absolute;\r\n        left: 117px;\r\n        width: 520px;\n}\n.dash-img-2 img {\r\n        position: absolute;\r\n        left: -17px;\r\n        z-index: -1;\n}\r\n    /*End dashboard section css*/\r\n\r\n    /*10.Start video section css*/\n.video {\r\n        background: rgba(0, 0, 0, 0) url(#) no-repeat scroll top center;\r\n        background-size: 80%;\r\n        background-position: 50% 320px;\r\n        background-repeat: no-repeat;\r\n        position: relative;\n}\n.video-overlay{\r\n        position: absolute;\r\n        top: 0;\r\n        left: 0;\r\n        width: 100%;\r\n        height: 100%;\r\n        background: #5627b4;\r\n        background: -webkit-gradient(left top, left bottom, color-stop(0%, #5627b4), color-stop(100%, #934dbe));\r\n        background: linear-gradient(to bottom, #5627b4 0%, #934dbe 100%);\r\n        opacity: .9;\n}\n.video-text{\r\n        position: relative;\r\n        margin-bottom: 125px;\n}\n.video-text p{\r\n        padding: 0 26%;\r\n        color: #fff;\n}\n.video-area{\r\n        position: relative;\r\n        margin-bottom: 200px;\n}\n.video-area a i {\r\n        width: 100px;\r\n        height: 100px;\r\n        line-height: 100px;\r\n        text-align: center;\r\n        color: #fff;\r\n        font-size: 42px;\r\n        background: #944dbe;\r\n        border-radius: 50%;\r\n        padding-left: 10px;\n}\r\n    /*End video section css*/\r\n\r\n    /*11.Start soft-feature section css*/\n.soft-feature-right{\r\n        position: relative;\n}\n.soft-feature-right h2{\r\n        text-transform: uppercase;\r\n        color: #944dbe;\n}\n.soft-feature-right h2:after{\r\n        display: block;\r\n        content: '';\r\n        width: 200px;\r\n        height: 1px;\r\n        background: #5224b3;\r\n        margin: 30px 0 30px 0;\n}\n.soft-feature-right h2:before{\r\n        display: block;\r\n        content: '';\r\n        width: 100px;\r\n        height: 3px;\r\n        background: #5224b3;\r\n        position: absolute;\r\n        top: 46.2%;\r\n        left: 10%;\n}\n.soft-feature-right p{\r\n        margin-bottom: 30px;\n}\n.s-feature-area{\r\n        position: relative;\n}\n.s-feature-area::after {\r\n        position: absolute;\r\n        content: '';\r\n        bottom: 0;\r\n        left: 5%;\r\n        margin-left: -2px;\r\n        border-radius: 0;\r\n        z-index: -1;\r\n        width: 2px;\r\n        background-color: #944dbe;\r\n        top: 50px;\r\n        height: 167px;\n}\n.s-feature-box{\r\n        position: relative;\r\n        margin-bottom: 30px;\n}\n.s-feature-box .media-left, .media>.pull-left{\r\n        padding-right: 30px;\n}\n.media-icon span {\r\n        font-size: 30px;\r\n        font-weight: 600;\r\n        height: 50px;\r\n        width: 50px;\r\n        text-align: center;\r\n        line-height: 45px;\r\n        background: #944dbe;\r\n        display: block;\r\n        border-radius: 50%;\r\n        color: #fff;\n}\r\n    /*End soft-feature section css*/\r\n\r\n    /*12.Start signup section css*/\n.signup{\r\n        background: #5627b4;\r\n        background: -webkit-gradient(left top, left bottom, color-stop(0%, #5627b4), color-stop(100%, #934dbe));\r\n        background: linear-gradient(to bottom, #5627b4 0%, #934dbe 100%);\n}\n.trial-text p{\r\n        color: #fff;\r\n        margin-bottom: 30px;\r\n        padding: 0 26%;\n}\n.trial-text .stfpp-btn{\r\n        padding: 20px 50px;\r\n        background: #fff;\r\n        color: #944dbe;\n}\r\n    /*End signup section css*/\r\n\r\n    /*13.Start screenshot section css*/\n.screenshot-button{\r\n        margin-bottom: 40px;\n}\n.screenshot-button .screenshot-btn{\r\n        padding: 20px 45px;\r\n        text-align: center;\r\n        background: transparent;\r\n        color: #944dbe;\r\n        border: 1px solid #944dbe;\r\n        font-size: 14px;\r\n        text-transform: uppercase;\r\n        font-weight: 600;\r\n        border-radius: 10px;\r\n        margin-right: 10px;\n}\n.screenshot-button .screenshot-btn:active,\r\n    .screenshot-button .screenshot-btn.is-checked {\r\n        color: #fff;\r\n        background: #944dbe;\n}\n.padding{\r\n        padding-left: 5px; \r\n        padding-right: 5px;\r\n        margin-bottom: 14px;\n}\n.portfolio-item {\r\n        position: relative;\r\n        overflow: hidden;\r\n        cursor: pointer;\n}\n.portfolio-item img {\r\n        width: 100%;\r\n        height: 100%;\n}\r\n    /*End screenshot section css*/\r\n\r\n    /*14.Start Testimonial section css*/\n.testimonial{\r\n        background: #f6f6f6;\n}\n.owl-carousel .owl-stage{\r\n        margin-top: 50px;\n}\n.client-area{\r\n        text-align: center;\r\n        background: #fff;\r\n        padding: 20px;\r\n        border: 1px solid #eaeaea;\r\n        border-radius: 10px;\r\n        transition: .5s;\n}\n.client-area:hover{\r\n        box-shadow: 0 0 15px #eaeaea;\n}\n.client-img img{\r\n        width: 60px !important;\r\n        height: 60px !important;\r\n        background: #fff;\r\n        box-shadow: 0 0 7px -2px rgba(0,0,0,.2);\r\n        border-radius: 50%;\r\n        margin-left: auto;\r\n        margin-right: auto;\r\n        position: relative;\r\n        bottom: 50px;\r\n        margin-bottom: -30px;\n}\n.client-review h4{\r\n        padding-top: 30px;\r\n        text-transform: uppercase;\r\n        color: #2c2c2c;\n}\n.client-slide .owl-dot {\r\n        height: 12px;\r\n        width: 12px;\r\n        border: 1px solid #eaeaea !important;\r\n        border-radius: 10px;\r\n        margin: 0 .2rem;\r\n        transition: all .25s ease-in-out;\n}\n.client-slide .owl-dot.active {\r\n        height: 12px;\r\n        width: 12px;\r\n        background-color: #944dbe;\r\n        border-radius: 50%;\r\n        border: none !important;\n}\n.client-slide .owl-dots{\r\n        margin-top: 20px;\r\n        text-align: center;\n}\r\n    /*End Testimonial section css*/\r\n\r\n    /*15.Start Pricing section css*/\n.pricing-table{\r\n        overflow: hidden;\r\n        position: relative;\r\n        box-shadow: 0 0 20px #eaeaea;\r\n        border-radius: 10px;\n}\n.pricing-head{\r\n        background: #5627b4;\r\n        background: -webkit-gradient(left top, left bottom, color-stop(0%, #5627b4), color-stop(100%, #934dbe));\r\n        background: linear-gradient(to bottom, #5627b4 0%, #934dbe 100%);\r\n        padding: 20px;\n}\n.pricing-head{\r\n        padding-top: 65px;\r\n        padding-bottom: 65px;\r\n        padding-left: 70px;\n}\n.pricing-head h5{\r\n        color: #fff;\r\n        text-transform: uppercase;\r\n        font-weight: 600;\r\n        margin-bottom: 15px;\n}\n.pricing-head h2{\r\n        color: #fff;\n}\n.pricing-head h2 span{\r\n        font-size: 14px;\r\n        font-weight: bold;\n}\n.pricing-body{\r\n        margin-bottom: 50px;\n}\n.pricing-body ul li {\r\n        padding-left: 70px;\r\n        padding-bottom: 25px;\r\n        padding-top: 25px;\r\n        border-bottom: 1px solid #eaeaea;\n}\n.pricing-body ul li i{\r\n        margin-right: 25px;\r\n        font-size: 14px;\r\n        color: #944dbe;\n}\n.pricing-btn{\r\n        padding-left: 70px;\r\n        padding-bottom: 50px;\n}\n.price-btn {\r\n        padding: 20px 40px;\r\n        border: 1px solid #944dbe;\r\n        font-size: 14px;\r\n        font-weight: 600;\r\n        text-transform: uppercase;\r\n        border-radius: 10px;\r\n        color: #944dbe;\r\n        transition: .5s;\n}\n.price-btn:hover,\r\n    .price-btn:focus{\r\n        background: #944dbe;\r\n        color: #fff;\n}\n.price-btn.checked{\r\n        background: #944dbe;\r\n        color: #fff;\n}\r\n    /*End Pricing section css*/\r\n\r\n    /*16.Start download section css*/\n.download{\r\n        background: #5627b4;\r\n        background: -webkit-gradient(left top, left bottom, color-stop(0%, #5627b4), color-stop(100%, #934dbe));\r\n        background: linear-gradient(to bottom, #5627b4 0%, #934dbe 100%);\n}\n.download-text p{\r\n        color: #fff;\r\n        padding-bottom: 30px;\n}\n.download-text .stfpp-btn{\r\n        background: #fff;\r\n        color: #8242bb;\n}\r\n    /*End download section css*/\r\n\r\n    /*17.Start Free-trial section css*/\n.contact-btn{\r\n        padding: 20px 60px;\r\n        background: #944dbe;\r\n        color: #fff;\r\n        font-size: 14px;\r\n        text-transform: uppercase;\r\n        border: none;\r\n        font-weight: 600;\r\n        border-radius: 10px;\n}\n.form-control{\r\n        height: 45px;\n}\r\n    /*End Free-trial section css*/\r\n\r\n    /*18.Start contact section css*/\n.contact{\r\n        background: #5627b4;\r\n        background: -webkit-gradient(left top, left bottom, color-stop(0%, #5627b4), color-stop(100%, #934dbe));\r\n        background: linear-gradient(to bottom, #5627b4 0%, #934dbe 100%);\n}\n.widget-text{\r\n        position: relative;\r\n        padding-left: 60px;\r\n        margin-bottom: 15px;\n}\n.widget-text i{\r\n        position: absolute;\r\n        left: 0;\r\n        top: -6px;\r\n        font-size: 30px;\r\n        color: #ffffff;\n}\n.widget-text p{\r\n        color: #fff;\n}\r\n    /*End contact section css*/\r\n\r\n\r\n\r\n    /*20.Start Scroll up css*/\n#scroll-up {\r\n        position: fixed;\r\n        z-index: 337;\r\n        bottom:30px;\r\n        right: 10px;\r\n        width: 40px;\r\n        height: 40px;\r\n        color: #fff;\r\n        font-size: 24px;\r\n        line-height: 40px;\r\n        text-align: center;\r\n        border-radius: 50%;\r\n        text-decoration: none;\r\n        cursor: pointer;\r\n        transition: all 0.25s;\r\n        display: none;\r\n        background: #944dbe;\n}\n#scroll-up:hover,\r\n    #scroll-up:focus{\r\n        background: #944dbe;\r\n        color: #fff;\n}\r\n    /*16.End Scroll up css*/\r\n\r\n    /*21.Start Index.html css*/\n.stfpp-bg{\r\n        background: #5627b4;\r\n        background: -webkit-gradient(left top, left bottom, color-stop(0%, #5627b4), color-stop(100%, #934dbe));\r\n        background: linear-gradient(to bottom, #5627b4 0%, #934dbe 100%);\r\n        position: relative;\r\n        padding-top: 200px;\r\n        padding-bottom: 200px;\n}\n.bg-title img{\r\n        margin: 0 auto;\r\n        padding-bottom: 30px;\n}\n.bg-title h1{\r\n        color: #fff;\r\n        text-transform: uppercase;\n}\n.category{\r\n        margin-bottom: 60px;\n}\n.cat-img img{\r\n        width: 100%;\n}\n.cat-title{\r\n        margin-bottom: 20px;\r\n        text-align: center;\n}\n.cat-title h4{\r\n        text-transform: uppercase;\r\n        color: #944dbe;\r\n        font-weight: 700;\n}\n.cat-button{\r\n        margin-top: 30px;\r\n        text-align: center;\n}\n.cat-button a{\r\n        padding: 15px 25px;\r\n        background: #944dbe;\r\n        color: #fff;\r\n        text-transform: uppercase;\r\n        font-weight: 600;\r\n        font-size: 16px;\r\n        border-radius: 5px;\n}\r\n    /*End Index.html css*/\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -46757,10 +47192,10 @@ exports["default"] = (sfc, props) => {
 
 /***/ }),
 
-/***/ "./resources/js/components/AdminDashboard.vue":
-/*!****************************************************!*\
-  !*** ./resources/js/components/AdminDashboard.vue ***!
-  \****************************************************/
+/***/ "./resources/js/components/Admin/Dashboard.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/Admin/Dashboard.vue ***!
+  \*****************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -46768,15 +47203,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _AdminDashboard_vue_vue_type_template_id_1d9b30b0__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdminDashboard.vue?vue&type=template&id=1d9b30b0 */ "./resources/js/components/AdminDashboard.vue?vue&type=template&id=1d9b30b0");
-/* harmony import */ var _AdminDashboard_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminDashboard.vue?vue&type=script&lang=js */ "./resources/js/components/AdminDashboard.vue?vue&type=script&lang=js");
+/* harmony import */ var _Dashboard_vue_vue_type_template_id_5d194e19__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Dashboard.vue?vue&type=template&id=5d194e19 */ "./resources/js/components/Admin/Dashboard.vue?vue&type=template&id=5d194e19");
+/* harmony import */ var _Dashboard_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Dashboard.vue?vue&type=script&lang=js */ "./resources/js/components/Admin/Dashboard.vue?vue&type=script&lang=js");
 /* harmony import */ var C_laragon_www_ngozicrmproject_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,C_laragon_www_ngozicrmproject_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_AdminDashboard_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_AdminDashboard_vue_vue_type_template_id_1d9b30b0__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/components/AdminDashboard.vue"]])
+const __exports__ = /*#__PURE__*/(0,C_laragon_www_ngozicrmproject_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Dashboard_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Dashboard_vue_vue_type_template_id_5d194e19__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/components/Admin/Dashboard.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -46910,15 +47345,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _HeaderArea_vue_vue_type_template_id_f9de4f36__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./HeaderArea.vue?vue&type=template&id=f9de4f36 */ "./resources/js/components/HeaderArea.vue?vue&type=template&id=f9de4f36");
-/* harmony import */ var _HeaderArea_vue_vue_type_style_index_0_id_f9de4f36_lang_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./HeaderArea.vue?vue&type=style&index=0&id=f9de4f36&lang=css */ "./resources/js/components/HeaderArea.vue?vue&type=style&index=0&id=f9de4f36&lang=css");
-/* harmony import */ var C_laragon_www_ngozicrmproject_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _HeaderArea_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./HeaderArea.vue?vue&type=script&lang=js */ "./resources/js/components/HeaderArea.vue?vue&type=script&lang=js");
+/* harmony import */ var _HeaderArea_vue_vue_type_style_index_0_id_f9de4f36_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./HeaderArea.vue?vue&type=style&index=0&id=f9de4f36&lang=css */ "./resources/js/components/HeaderArea.vue?vue&type=style&index=0&id=f9de4f36&lang=css");
+/* harmony import */ var C_laragon_www_ngozicrmproject_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
-const script = {}
+
+
 
 ;
 
 
-const __exports__ = /*#__PURE__*/(0,C_laragon_www_ngozicrmproject_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(script, [['render',_HeaderArea_vue_vue_type_template_id_f9de4f36__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/components/HeaderArea.vue"]])
+const __exports__ = /*#__PURE__*/(0,C_laragon_www_ngozicrmproject_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_HeaderArea_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_HeaderArea_vue_vue_type_template_id_f9de4f36__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/components/HeaderArea.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -46958,18 +47395,18 @@ if (false) {}
 
 /***/ }),
 
-/***/ "./resources/js/components/AdminDashboard.vue?vue&type=script&lang=js":
-/*!****************************************************************************!*\
-  !*** ./resources/js/components/AdminDashboard.vue?vue&type=script&lang=js ***!
-  \****************************************************************************/
+/***/ "./resources/js/components/Admin/Dashboard.vue?vue&type=script&lang=js":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/components/Admin/Dashboard.vue?vue&type=script&lang=js ***!
+  \*****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminDashboard_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Dashboard_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminDashboard_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminDashboard.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/AdminDashboard.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Dashboard_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./Dashboard.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Admin/Dashboard.vue?vue&type=script&lang=js");
  
 
 /***/ }),
@@ -47022,6 +47459,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/HeaderArea.vue?vue&type=script&lang=js":
+/*!************************************************************************!*\
+  !*** ./resources/js/components/HeaderArea.vue?vue&type=script&lang=js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_HeaderArea_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_HeaderArea_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./HeaderArea.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/HeaderArea.vue?vue&type=script&lang=js");
+ 
+
+/***/ }),
+
 /***/ "./resources/js/components/Home.vue?vue&type=script&lang=js":
 /*!******************************************************************!*\
   !*** ./resources/js/components/Home.vue?vue&type=script&lang=js ***!
@@ -47038,18 +47491,18 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/AdminDashboard.vue?vue&type=template&id=1d9b30b0":
-/*!**********************************************************************************!*\
-  !*** ./resources/js/components/AdminDashboard.vue?vue&type=template&id=1d9b30b0 ***!
-  \**********************************************************************************/
+/***/ "./resources/js/components/Admin/Dashboard.vue?vue&type=template&id=5d194e19":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/Admin/Dashboard.vue?vue&type=template&id=5d194e19 ***!
+  \***********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminDashboard_vue_vue_type_template_id_1d9b30b0__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Dashboard_vue_vue_type_template_id_5d194e19__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminDashboard_vue_vue_type_template_id_1d9b30b0__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminDashboard.vue?vue&type=template&id=1d9b30b0 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/AdminDashboard.vue?vue&type=template&id=1d9b30b0");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Dashboard_vue_vue_type_template_id_5d194e19__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./Dashboard.vue?vue&type=template&id=5d194e19 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Admin/Dashboard.vue?vue&type=template&id=5d194e19");
 
 
 /***/ }),

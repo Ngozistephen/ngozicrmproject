@@ -17,8 +17,8 @@
                                </div>
                                <div class="collapse navbar-collapse navbar-ex1-collapse" >
                                     <ul class="nav navbar-nav navbar-right" v-if="isLoggedIn">
-                                        <router-link to="/dashboard" class="page-scroll">Dashboard</router-link>
-                                        <a class="page-scroll" @click="logout">Logout</a>
+                                        <li><router-link to="/dashboard" class="page-scroll">Dashboard</router-link></li>
+                                        <li><router-link to="" class="page-scroll" @click="logout">Logout</router-link></li>
                                     </ul>
                                     <ul class="nav navbar-nav navbar-right" v-else>
                                         <li><router-link to="/#home" class="page-scroll">Home</router-link></li>
@@ -38,6 +38,45 @@
 </template>
 
 <script>
+export default {
+        name: "HeaderArea",
+
+
+       
+
+        data() {
+            return {
+                isLoggedIn: false,
+            }
+        },
+
+        created(){
+            if (window.laravel.isLoggedIn) {
+                this.isLoggedIn = true
+            }
+        },
+
+        methods: {
+            logout(e) {
+                e.preventDefault()
+                this.$axios.get('/sanctum/csrf-cookie').then(response => {
+                    this.$axios.post('/api/logout')
+                    .then(response => {
+                        if(response.data.success){
+                            window.location.href = "/"
+                        }else{
+                            console.log(response );
+                        }
+
+                    })
+                    .catch(function (error){
+                        console.error(error);
+                    });
+                })
+            }
+        }
+    }
+    
 
 </script>
 
@@ -46,7 +85,7 @@
     
 /*3.Start Header Area css*/
 header {
-    position:absolute;
+    position:relative;
     left: 0;
     /* top: 20px; */
     width:100%;

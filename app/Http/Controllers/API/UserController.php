@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     public function login(Request $request){
+        $status = 200;
          $credentials = [
             'email' =>  $request ->email,
             'password' => $request->password
@@ -23,6 +24,7 @@ class UserController extends Controller
          } else {
             $success = false;
             $message = "Unauthorised";
+            $status = 400;
          }
 
          $response = [
@@ -31,16 +33,19 @@ class UserController extends Controller
          ];
 
 
-         return response()->json($response);
+         return response()->json($response, $status);
     }
 
 
     public function register (Request $request){
+
+        $status = 201;
         try {
             $user = new User();
-            $user-> name = $request->name;
-            $user-> email = $request->email;
-            $user-> password = Hash::make($request->password);
+            $user->firstname = $request->firstname;
+            $user->lastname = $request->lastname;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
             $user->save();
 
             $success = true;
@@ -49,6 +54,7 @@ class UserController extends Controller
         } catch (\Illuminate\Database\QueryException $ex) {
             $success = false;
             $message = $ex->getMessage();
+            $status = 400;
 
         }
 
@@ -58,7 +64,7 @@ class UserController extends Controller
          ];
 
 
-         return response()->json($response);
+         return response()->json($response, $status);
 
     }
 
