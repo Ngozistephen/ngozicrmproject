@@ -70,6 +70,7 @@ class UserController extends Controller
 
 
     public function logout (Request $request){
+        $status = 204;
         try {
             Session::flush();
             $success = true;
@@ -77,6 +78,7 @@ class UserController extends Controller
         } catch (\Illuminate\Database\QueryException $ex) {
             $success = false;
             $message = $ex->getMessage();
+            $status = 400;
         }
 
 
@@ -86,7 +88,7 @@ class UserController extends Controller
          ];
 
 
-         return response()->json($response);
+         return response()->json($response, $status);
 
     }
 }

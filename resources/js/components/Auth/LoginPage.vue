@@ -88,9 +88,9 @@ import HeaderArea from '../HeaderArea.vue';
                         })
                         .then(response => {
                             
-                            const url =    this.$router.resolve({name: 'dashboard'}).fullPath;
+                               this.$router.resolve({name: 'dashboard'}).fullPath;
                             // console. log(url)
-                           location = url;
+                           
                         })
                         .catch( (error ) => {
                             console.error(error);

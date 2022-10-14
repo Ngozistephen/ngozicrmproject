@@ -1,6 +1,8 @@
 <template>
     <div class="">
-        Welcome {{firstname || lastname}}
+        Welcome {{firstname }} {{lastname}}
+        
+
     </div>
 
 
@@ -20,13 +22,13 @@
             
         },
 
-        // created(){
-        //     if (window.laravel.user){
-        //         this.firstname = window.laravel.user.firstname,
-        //         this.lastname = window.laravel.user.lastname
+        created(){
+            if (window.laravel.user){
+                this.firstname = window.laravel.user.firstname,
+                this.lastname = window.laravel.user.lastname
 
-        //     }
-        // },
+            }
+        },
         components: {
             
         }

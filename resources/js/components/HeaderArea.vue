@@ -18,7 +18,7 @@
                                <div class="collapse navbar-collapse navbar-ex1-collapse" >
                                     <ul class="nav navbar-nav navbar-right" v-if="isLoggedIn">
                                         <li><router-link to="/dashboard" class="page-scroll">Dashboard</router-link></li>
-                                        <li><router-link to="" class="page-scroll" @click="logout">Logout</router-link></li>
+                                        <li><router-link to="/logout" class="page-scroll" @click="logout">Logout</router-link></li>
                                     </ul>
                                     <ul class="nav navbar-nav navbar-right" v-else>
                                         <li><router-link to="/#home" class="page-scroll">Home</router-link></li>

@@ -22991,12 +22991,11 @@ __webpack_require__.r(__webpack_exports__);
       lastname: null
     };
   },
-  // created(){
-  //     if (window.laravel.user){
-  //         this.firstname = window.laravel.user.firstname,
-  //         this.lastname = window.laravel.user.lastname
-  //     }
-  // },
+  created: function created() {
+    if (window.laravel.user) {
+      this.firstname = window.laravel.user.firstname, this.lastname = window.laravel.user.lastname;
+    }
+  },
   components: {}
 });
 
@@ -23061,12 +23060,9 @@ __webpack_require__.r(__webpack_exports__);
             email: _this.email,
             password: _this.password
           }).then(function (response) {
-            var url = _this.$router.resolve({
+            _this.$router.resolve({
               name: 'dashboard'
             }).fullPath; // console. log(url)
-
-
-            location = url;
           })["catch"](function (error) {
             console.error(error);
             _this.error = error.response.data.message;
@@ -23228,7 +23224,7 @@ var _hoisted_1 = {
   "class": ""
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, " Welcome " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.firstname || $data.lastname), 1
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, " Welcome " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.firstname) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.lastname), 1
   /* TEXT */
   );
 }
@@ -23734,7 +23730,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     /* STABLE */
 
   })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
-    to: "",
+    to: "/logout",
     "class": "page-scroll",
     onClick: $options.logout
   }, {
